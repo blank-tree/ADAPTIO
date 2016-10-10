@@ -4,7 +4,7 @@
  * @author: Fernando Obieta - https://blanktree.ch
  * @date: 161010
  * @version: 0.2
- * DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+ * DO WHAT THE FUCK YOU WANT TO - PUBLIC LICENSE
  */
 
 // Include libraries
@@ -41,7 +41,5 @@ void loop() {
 	// position servos
 	for(int i=0; i<4; i++){
 	    servos[i].write(servoPositions[i]);
-	}
-
-	
+	}	
 }
