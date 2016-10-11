@@ -2,24 +2,25 @@
  * ADAPTIO
  * Morphing function
  * @author: Fernando Obieta - https://blanktree.ch
- * @date: 161010
- * @version: 0.1
+ * @date: 161011
+ * @version: 0.2
  * DO WHAT THE FUCK YOU WANT TO - PUBLIC LICENSE
  */
 
 // Constants
-// const int servoRange[4][2] = {
-// 	{0,180}, // Servo 0
-// 	{0,180}, // Servo 1
-// 	{0,180}, // Servo 2
-// 	{0,180}  // Servo 3
-// };
+const int servoRange[4][2] = {
+	{0,180}, // Servo 0
+	{0,180}, // Servo 1
+	{0,180}, // Servo 2
+	{0,180}  // Servo 3
+};
+const int DURATION = 250; // 0.25sec
 
 // Variables
 int duration;
 int[] servoPositioning;
 int lastInput;
-unsigned long lastPeak;
+unsigned long lastActivation;
 
 void morphSetup() {
 
@@ -30,21 +31,20 @@ void morphSetup() {
 	}
 
 	lastInput = 0;
-	lastPeak = 0;
+	lastActivation = 0;
 }
 
 int[] morphLoop(int morphInput) {
 
-	// How are we going to changed this stuff?! Good question I guess...
+	long currentTime = millis();
+
+	if (currentTime - lastActivation > DURATION) {
 	
-	if(morphInput != lastInput || morphInput == 0) {
+		if(morphInput != lastInput || 
+			(morphInput == 0 && servoPositioning[selectedServo] != 0)) {
 
-		int selectedServo[] = random(0, 4);
-
-		int selectedServoSize = 0; // TODO
-
-		for(int i=0; i<4; i++){
-		    
+			int selectedServo = random(0, 4);
+			    
 			double factor = 1;
 
 			if (morphInput < 0) {
@@ -77,16 +77,17 @@ int[] morphLoop(int morphInput) {
 				factor = 1.4;
 			}
 
-			servoPositioning[i] = servoPositioning[i] * factor;
+			servoPositioning[selectedServo] = servoPositioning[selectedServo] * factor;
 
-			if (servoPositioning[i] < servoRange[i][0]) {
-				servoPositioning[i] = servoRange[i][0];
+			if (servoPositioning[selectedServo] < servoRange[selectedServo][0]) {
+				servoPositioning[selectedServo] = servoRange[selectedServo][0];
 			}
 
-			if (servoPositioning[i] > servoRange[i][1]) {
-				servoPositioning[i] = servoRange[i][1];
+			if (servoPositioning[selectedServo] > servoRange[selectedServo][1]) {
+				servoPositioning[selectedServo] = servoRange[selectedServo][1];
 			}
 
+			lastActivation = currentTime;
 		}
 	}
 
