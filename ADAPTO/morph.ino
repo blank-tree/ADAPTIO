@@ -14,6 +14,7 @@ const int servoRange[4][2] = {
 	{0,180}, // Servo 2
 	{0,180}  // Servo 3
 };
+const int ARRAY_SIZE = 4;
 const int DURATION = 250; // 0.25sec
 
 // Variables
@@ -26,7 +27,7 @@ void morphSetup() {
 
 	duration = 0;
 
-	for(int i=0; i<4; i++){
+	for(int i=0; i<ARRAY_SIZE; i++){
 	    servoPositioning[i] = 0;
 	}
 

@@ -12,6 +12,7 @@
 
 // Constants
 const int[] PINS_SERVO = {1, 2, 3, 4};
+const int ARRAY_SIZE = 4;
 
 // Variables
 Servo[] servos;
@@ -24,7 +25,7 @@ void setup() {
 	receiveSetup();
 	morphSetup();
 
-	for(int i=0; i<4; i++){
+	for(int i=0; i<ARRAY_SIZE; i++){
 		// Attach servo pins to the servo variables
 	    Servo[i].attach(PINS_SERVO[i]);
 
@@ -39,7 +40,7 @@ void loop() {
 	servoPositions = morphLoop(getInput());
 
 	// position servos
-	for(int i=0; i<4; i++){
+	for(int i=0; i<ARRAY_SIZE; i++){
 	    servos[i].write(servoPositions[i]);
 	}	
 }
