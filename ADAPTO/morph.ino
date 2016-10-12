@@ -2,8 +2,8 @@
  * ADAPTIO
  * Morphing function
  * @author: Fernando Obieta - https://blanktree.ch
- * @date: 161011
- * @version: 0.2
+ * @date: 161012
+ * @version: 0.4
  * DO WHAT THE FUCK YOU WANT TO - PUBLIC LICENSE
  */
 
@@ -15,7 +15,7 @@ const int servoRange[4][2] = {
 	{5,170}  // Servo 3
 };
 const int ARRAY_SIZE_MORPH = 4;
-const int DURATION = 100; // 0.25sec
+const int DURATION = 250; // 0.25sec
 
 // Variables
 int duration;
@@ -33,7 +33,7 @@ void morphSetup() {
 void morphLoop(double morphInput) {
 
 	// save the current time into a new variable
-	long currentTime = millis();
+	unsigned long currentTime = millis();
 
 	// only morph when the duration is past
 	if (currentTime - lastActivation > DURATION) {
@@ -61,7 +61,7 @@ void morphLoop(double morphInput) {
 
 			// all cases of different input factors
 			if (morphInput <= 100) {
-				factor = 0.5;
+				factor = 0.75;
 			} else if (morphInput > 100 && morphInput < 199) {
 				factor = 1;
 			} else if (morphInput > 200 && morphInput < 299 ) {
@@ -85,22 +85,22 @@ void morphLoop(double morphInput) {
 			// apply the factor to change the servo positioning
 			// the plus 2 only prevents the positioning going below 2, so that the callculation with
 			// the factor still works
-			servoPositions[selectedServo] = 2 + servoPositions[selectedServo] * factor;
+			newServoPositions[selectedServo] = 2 + newServoPositions[selectedServo] * factor;
 
 			// check that the positioning for the selected servo doesn't go below the defined range
-			if (servoPositions[selectedServo] < servoRange[selectedServo][0]) {
-				servoPositions[selectedServo] = servoRange[selectedServo][0];
+			if (newServoPositions[selectedServo] < servoRange[selectedServo][0]) {
+				newServoPositions[selectedServo] = servoRange[selectedServo][0];
 			}
 
 			// check that the positioning for the selected servo doesn't go above the defined range
-			if (servoPositions[selectedServo] > servoRange[selectedServo][1]) {
-				servoPositions[selectedServo] = servoRange[selectedServo][1];
+			if (newServoPositions[selectedServo] > servoRange[selectedServo][1]) {
+				newServoPositions[selectedServo] = servoRange[selectedServo][1];
 			}
 
 			// update the last activation variable so the functions waits for the defined duration
 			lastActivation = currentTime;
 
-			Serial.println(servoPositions[selectedServo]);
+			Serial.println(newServoPositions[selectedServo]);
 		// }
 	}
 
