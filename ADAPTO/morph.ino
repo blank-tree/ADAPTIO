@@ -9,32 +9,28 @@
 
 // Constants
 const int servoRange[4][2] = {
-	{0,180}, // Servo 0
-	{0,180}, // Servo 1
-	{0,180}, // Servo 2
-	{0,180}  // Servo 3
+	{5,170}, // Servo 0
+	{5,170}, // Servo 1
+	{5,170}, // Servo 2
+	{5,170}  // Servo 3
 };
-const int ARRAY_SIZE = 4;
-const int DURATION = 250; // 0.25sec
+const int ARRAY_SIZE_MORPH = 4;
+const int DURATION = 100; // 0.25sec
 
 // Variables
 int duration;
-int[] servoPositioning;
 int lastInput;
 unsigned long lastActivation;
 
 void morphSetup() {
 
 	// Initialize all variables
-	for(int i=0; i<ARRAY_SIZE; i++){
-	    servoPositioning[i] = 0;
-	}
 	duration = 0;
 	lastInput = 0;
 	lastActivation = 0;
 }
 
-int[] morphLoop(int morphInput) {
+void morphLoop(double morphInput) {
 
 	// save the current time into a new variable
 	long currentTime = millis();
@@ -47,11 +43,11 @@ int[] morphLoop(int morphInput) {
 	
 		// to prevent from running all the time, when no input is passed, only activate when the input alters
 		// or the morph is still fading down
-		if(morphInput != lastInput || 
-			(morphInput == 0 && servoPositioning[selectedServo] != 0)) {
+		// if(morphInput != lastInput || 
+		// 	(morphInput <= 100 && servoPositions[selectedServo] != 0)) {
 			    
 			// define factor to multiply the servo positioning
-			double factor = 1;
+			float factor = 1;
 
 			// prevent the value from going below zero
 			if (morphInput < 0) {
@@ -65,7 +61,7 @@ int[] morphLoop(int morphInput) {
 
 			// all cases of different input factors
 			if (morphInput <= 100) {
-				factor = 0.8;
+				factor = 0.5;
 			} else if (morphInput > 100 && morphInput < 199) {
 				factor = 1;
 			} else if (morphInput > 200 && morphInput < 299 ) {
@@ -89,26 +85,25 @@ int[] morphLoop(int morphInput) {
 			// apply the factor to change the servo positioning
 			// the plus 2 only prevents the positioning going below 2, so that the callculation with
 			// the factor still works
-			servoPositioning[selectedServo] = 2 + servoPositioning[selectedServo] * factor;
+			servoPositions[selectedServo] = 2 + servoPositions[selectedServo] * factor;
 
 			// check that the positioning for the selected servo doesn't go below the defined range
-			if (servoPositioning[selectedServo] < servoRange[selectedServo][0]) {
-				servoPositioning[selectedServo] = servoRange[selectedServo][0];
+			if (servoPositions[selectedServo] < servoRange[selectedServo][0]) {
+				servoPositions[selectedServo] = servoRange[selectedServo][0];
 			}
 
 			// check that the positioning for the selected servo doesn't go above the defined range
-			if (servoPositioning[selectedServo] > servoRange[selectedServo][1]) {
-				servoPositioning[selectedServo] = servoRange[selectedServo][1];
+			if (servoPositions[selectedServo] > servoRange[selectedServo][1]) {
+				servoPositions[selectedServo] = servoRange[selectedServo][1];
 			}
 
 			// update the last activation variable so the functions waits for the defined duration
 			lastActivation = currentTime;
-		}
+
+			Serial.println(servoPositions[selectedServo]);
+		// }
 	}
 
 	// update the last input variable so the functions waits if the same input is passed
 	lastInput = morphInput;
-
-	// return the new positioning array
-	return servoPositioning;
 }
