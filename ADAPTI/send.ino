@@ -37,7 +37,7 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  while (!client.connect("ADAPTI", "try", "try")) { // String: clientId, String: tokenKey, String: tokenSecret
+  while (!client.connect("ADAPTI", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
     Serial.print(".");
     delay(1000);
   }
@@ -56,9 +56,9 @@ void sendLoop(int inputValue) {
   }
 
   // publish a message roughly every second.
-  if(millis() - lastMillis > 1000) {
+  if(millis() - lastMillis > 200) {
     lastMillis = millis();
-    client.publish("/ADAPTI/set", inputValue);
+    client.publish("/ADAPTI/set", (char*)inputValue);
   }
 }
 

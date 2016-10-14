@@ -18,12 +18,12 @@ const int FLEX_RANGE[4][2] = {
 };
 
 // Variables
-int inputValue;
+// int inputValue;
 int flexValues[ARRAY_SIZE];
 
 void flexSetup() {
 	
-	inputValue = 0;
+	// inputValue = 0;
 
 	for(int i=0; i<4; i++){
 	    flexValues[i] = 0;

@@ -42,7 +42,7 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  while (!client.connect("arduino", "try", "try")) {
+  while (!client.connect("arduino", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
     Serial.print(".");
     delay(1000);
   }
