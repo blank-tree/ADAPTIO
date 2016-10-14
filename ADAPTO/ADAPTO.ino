@@ -40,7 +40,7 @@ void setup() {
 	    lastUpdate[i] = 0;
 	}
 
-	Serial.begin(9600);
+	// Serial.begin(9600);
 }
 
 void loop() {
@@ -53,7 +53,6 @@ void loop() {
 
 	// Testing
 	float sensorValue = analogRead(SENSOR_PIN); // Readout on variable
-	// Serial.println(sensorValue);
 	sensorValue = map(sensorValue, 0, 1023, 0, 1000);
 	morphLoop(sensorValue);
 	// Testing end

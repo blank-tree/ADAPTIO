@@ -7,8 +7,6 @@
  * DO WHAT THE FUCK YOU WANT TO - PUBLIC LICENSE
  */
 
-//Constants
-
 
 // Variables
 int inputValue;

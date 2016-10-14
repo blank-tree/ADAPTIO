@@ -100,7 +100,7 @@ void morphLoop(double morphInput) {
 			// update the last activation variable so the functions waits for the defined duration
 			lastActivation = currentTime;
 
-			Serial.println(newServoPositions[selectedServo]);
+			// Serial.println(newServoPositions[selectedServo]);
 		// }
 	}
 
