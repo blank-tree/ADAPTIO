@@ -8,12 +8,6 @@
  */
 
 // Constants
-const int servoRange[4][2] = {
-	{5,170}, // Servo 0
-	{5,170}, // Servo 1
-	{5,170}, // Servo 2
-	{5,170}  // Servo 3
-};
 const int ARRAY_SIZE_MORPH = 4;
 const int DURATION = 250; // 0.25sec
 

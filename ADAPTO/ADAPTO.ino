@@ -14,6 +14,13 @@
 const int ARRAY_SIZE = 4;
 const int PINS_SERVO[ARRAY_SIZE] = {A1, A2, A3, A4};
 const int UPDATE_DELAY = 25;
+const int servoRange[4][2] = {
+	{5,170}, // Servo 0
+	{5,170}, // Servo 1
+	{5,170}, // Servo 2
+	{5,170}  // Servo 3
+};
+const int PIN_EL = 7;
 
 // Variables
 Servo servos[ARRAY_SIZE];
@@ -40,10 +47,14 @@ void setup() {
 	    lastUpdate[i] = 0;
 	}
 
+	pinMode(PIN_EL, OUTPUT);
+
 	// Serial.begin(9600);
 }
 
 void loop() {
+
+	digitalWrite(PIN_EL, 255);
 
 	// save the current time into a new variable
 	unsigned long currentTime = millis();
@@ -71,7 +82,9 @@ void loop() {
 			lastUpdate[i] = currentTime;
 		}
 
+		int newVal = map(servoPositions[i], servoRange[i][0], servoRange[i][1], servoRange[i][1], servoRange[i][0]);
+
 		// send new servo positions
-	    servos[i].write(servoPositions[i]);
+	    servos[i].write(newVal);
 	}	
 }
