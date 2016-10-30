@@ -34,7 +34,7 @@ const int SENSOR_PIN = A5;
 
 void setup() {
 
-	// receiveSetup();
+	receiveSetup();
 	morphSetup();
 
 	for(int i=0; i<ARRAY_SIZE; i++){
@@ -49,23 +49,25 @@ void setup() {
 
 	pinMode(PIN_EL, OUTPUT);
 
-	// Serial.begin(9600);
+	Serial.begin(9600);
 }
 
 void loop() {
+
+	// Serial.println("A");
 
 	digitalWrite(PIN_EL, 255);
 
 	// save the current time into a new variable
 	unsigned long currentTime = millis();
 
-	// receiveLoop();
-	// morphLoop(getInput());
+	receiveLoop();
+	morphLoop(getInput());
 
 	// Testing
-	float sensorValue = analogRead(SENSOR_PIN); // Readout on variable
-	sensorValue = map(sensorValue, 0, 1023, 0, 1000);
-	morphLoop(sensorValue);
+	// float sensorValue = analogRead(SENSOR_PIN); // Readout on variable
+	// sensorValue = map(sensorValue, 0, 1023, 0, 1000);
+	// morphLoop(sensorValue);
 	// Testing end
 	
 

@@ -13,8 +13,8 @@
 #include <WiFi101.h>
 #include <MQTTClient.h>
 
-char *ssid = "BRIDGE";
-char *pass = "internet";
+char *ssid = "R2-D2";
+char *pass = "yeah-Whatever";
 
 WiFiClient net;
 MQTTClient client;
@@ -25,7 +25,7 @@ unsigned long lastMillis = 0;
 int shiftrInput;
 
 void receiveSetup() {
-  Serial.begin(9600);
+  // Serial.begin(9600);
   WiFi.begin(ssid, pass);
   client.begin("broker.shiftr.io", net);
 
@@ -42,7 +42,7 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  while (!client.connect("ADAPTO", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
+  while (!client.connect("ADAPTIO", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
     Serial.print(".");
     delay(1000);
   }
@@ -50,7 +50,7 @@ void connect() {
   Serial.println("\nconnected!");
 
 
-  client.subscribe("/ADAPTIO");
+  client.subscribe("/ADAPTIO/set");
 }
 
 void receiveLoop() {

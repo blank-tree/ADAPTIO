@@ -31,7 +31,7 @@ void flexSetup() {
 
 }
 
-int flexLoop() {
+void flexLoop() {
 
 	int highestValue = 0;
 
@@ -53,7 +53,9 @@ int flexLoop() {
 	    }
 	}
 
-	inputValue = inputValue * 0.8 + highestValue * 0.2;
+	// inputValue = inputValue * 0.8 + highestValue * 0.2;
+
+	inputValue = map(highestValue, 600, 900, 0, 1000);
 
 	if (inputValue > 1000) {
 		inputValue = 1000;
@@ -62,6 +64,4 @@ int flexLoop() {
 	if (inputValue < 0) {
 		inputValue = 0;
 	}
-
-	return inputValue;	
 }

@@ -13,8 +13,8 @@
 #include <WiFi101.h>
 #include <MQTTClient.h>
 
-char *ssid = "BRIDGE";
-char *pass = "internet";
+char *ssid = "R2-D2";
+char *pass = "yeah-Whatever";
 
 WiFiClient net;
 MQTTClient client;
@@ -37,7 +37,7 @@ void connect() {
   }
 
   Serial.print("\nconnecting...");
-  while (!client.connect("ADAPTI", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
+  while (!client.connect("ADAPTIO", "771c4190", "c5c88ca4879b5f22")) { // String: clientId, String: tokenKey, String: tokenSecret
     Serial.print(".");
     delay(1000);
   }
@@ -58,7 +58,7 @@ void sendLoop(int inputValue) {
   // publish a message roughly every second.
   if(millis() - lastMillis > 200) {
     lastMillis = millis();
-    client.publish("/ADAPTI/set", (char*)inputValue);
+    client.publish("/ADAPTIO/set", String(inputValue));
   }
 }
 

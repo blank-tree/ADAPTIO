@@ -28,7 +28,7 @@ void setup() {
 
 void loop() {
 
-	inputValue = flexLoop();
+	flexLoop();
 
 	sendLoop(inputValue);
 }
